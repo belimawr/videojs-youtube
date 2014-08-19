@@ -477,6 +477,20 @@
     return true;
   };
 
+  videojs.Youtube.prototype.setAutoplay = function(val) {
+    this.ytplayer.sautoplay = val;
+    this.player_.options()['autoplay'] = val;
+    return val;
+  };
+
+  videojs.Youtube.prototype.autoplay = function() {
+    return this.ytplayer.sautoplay || this.player_.options()['autoplay'];
+  };
+
+  videojs.Youtube.prototype.ended = function() {
+    return this.lastState === YT.PlayerState.ENDED;
+  };
+
   // YouTube is supported on all platforms
   videojs.Youtube.isSupported = function() {
     return true;
