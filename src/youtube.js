@@ -587,6 +587,11 @@
 
   videojs.Youtube.prototype.updateQualities = function() {
 
+    if(typeof this.ytplayer === 'undefined' ||
+       typeof this.ytplayer.getAvailableQualityLevels === 'undefined') {
+      return;
+    }
+
     function setupEventListener(el) {
       addEventListener(el, 'click', function() {
         var quality = this.getAttribute('data-val');
@@ -604,7 +609,7 @@
       });
     }
 
-    var qualities = this.ytplayer.getAvailableQualityLevels();
+    var qualities = this.ytplayer.getAvailableQualityLevels() || [];
     var self = this;
 
     if(qualities.indexOf(this.userQuality) < 0) {
